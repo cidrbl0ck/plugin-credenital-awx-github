@@ -1,8 +1,9 @@
 # AWX/AAP Credential Plugin for Github Apps
 
-Was tested on AWX 23.5.1, but *should* work for newer versions with the plugin archtecture as both entry points are specified in the build.
+AWX: Was tested on AWX 23.5.1, but *should* work for newer versions with the plugin archtecture as both entry points are specified in the build.
+AAP: Was tested on version 2.5, like above, it should work on 2.4 but no guarantees. 
 
-## Usage
+## Container Usage
 With the continerized version of AWX doing installation of the external packages needs to be done at container build time. The best method of doing this is to wrap the task and web containers in your own Dockerfile and install this package. 
 For RPM installation flavors see notes at bottom.
 
@@ -102,7 +103,9 @@ You should now be able to use the plugin in AWX.
 
 
 ## RPM Installations
-For those who are using the RPM install versus the containerized, You need to activate your default Python virtual environment, and install the plugin module there, then use awx-manage to add the new type and finally restart the Controller services. 
+For those who are using the RPM install versus the containerized, You need to activate your default Python virtual environment, and install the plugin module there, then use awx-manage to add the new type and finally restart the Controller services. Make sure to perform these steps on all Automation Controller hosts you have. If you install the plugin on only one, you will receive 'Internal server Errors' in the browser and tower.log will return python exceptions for 'KeyError': 'github_app_plugin'.
+Ask me how I know ;)
+
 ```shell
 cd /var/lib/awx/venv/awx
 source /var/lib/awx/venv/awx/bin/activate
